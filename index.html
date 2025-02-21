@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <bg><center><b>Mete AI Open Source Artificial Intelligence Project ©</b></center>
+    </bg>
+    <hr class="hr1" style="width:70%" color="black">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+US+Modern+Guides&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #00fff7;
+            font-family: "Roboto Mono", monospace;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-size: large;
+            padding: 25px;
+            color: #000000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        #chat-container {
+            max-width: 500px;
+            max-height: 345px;
+            margin: 42px auto;
+            border: 50px solid #0e85836e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 10 10 100px rgba(0, 0, 0, 0.1);
+            
+            
+        }
+
+        #chat-header {
+            background-color: #000000;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            background-attachment: scroll;
+        }
+        #chat-messages {
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        #user-input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: #000000;
+            background-color: #00fff76a;
+            border-top: 1px solid;
+            outline: none;
+        }
+        .dark-mode {
+             background-color: rgb(0, 0, 0);
+             color: #02ede5;
+        }
+        .button1 {
+            border-radius: 12px;
+            border: 2px solid #000000;
+            color: black;
+            background-color: white;
+            transition-duration: 0.4s;
+            display: inline-block;
+            font-size: 15px;
+            cursor: pointer;
+            font-family: "Roboto Mono", monospace;
+            box-shadow: 0 2px #999;
+
+        }
+        .input{
+        font-family: "Roboto Mono", monospace; 
+        font-style: normal; 
+        text-align: center; 
+        color: #000000;
+        }
+        .hr1{
+            transition: background-color 0.3s ease;
+            background-color: #000000;
+        }
+        
+        dark-mode.hr1 {
+            color: #00ffaa; /* Dark mode color */
+        }
+        .dark-mode .hr1 {
+            background-color: aqua; /* Dark mode color */
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        function myFunction() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+}
+    </script>
+    <center><button class="button1" onclick="myFunction()">Dark Mode</button></center>
+
+<div id="chat-container">
+    <div id="chat-header">
+        Artifical Intelligence
+    </div>
+    <div id="chat-messages"></div>
+    <input class="input" type="text" id="user-input" placeholder="Type your message...">
+</div>
+
+ <script>
+    // Bot responses database
+    var responsesDatabase = {
+        greetings: {
+            hello: 'Hi there!',
+            hi: 'Hello!',
+            hey: 'Hey',
+        },
+       feelings: {
+            'how are you': 'I am just a computer program that was a pain to make, but how are you?',
+            'who is jeslin':'A good but smart guy',
+            'who is lewis hamilton':'A pro racer and a legend according to jeslin ', 
+            'who is max verstappen':'One of the best racer in f1 history ', 
+            'who made you':'I was made by Jones Varghese (Main Programmer) and Jeslin Joe Mathew (Programming and Designing) ', 
+            'what is your name':'I am Mete AI. One of the best ai in the world ', 
+            'can i ask you some questions ':'I am very sorry, you cannot ask me questions ',
+            'who are you':'I am a programming ai with machine learning technology. I will be better some day',
+            'bro':'what? ', 
+            'how did jones and jeslin make you':'he made me with Visual Studio Code." ',
+            'can i get your name':'My Name is Mete AI.',
+            'who designed you': 'I was designed by jeslin Joe Mathew',
+            'who is arpit':'Arpit is a good friend of Jeslin Joe Mathew and Jones Varghese and Dev Narayan.',
+            fine: 'That\'s great to hear!',
+            good: 'I\'m doing well, thank you!',
+            bad: 'I\'m sorry to hear that if you need anything you know where to find me!',
+        },
+        farewell: {
+            bye: 'Goodbye! Have a great day!',
+            goodbye: 'Farewell!',
+            seeYou: 'See you later!',
+        },
+        default: 'I\'m sorry, I didn\'t understand that. Could you please rephrase it?',
+    };
+
+    document.getElementById('user-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            handleUserInput();
+        }
+    });
+
+    function handleUserInput() {
+        var userInput = document.getElementById('user-input').value;
+        if (userInput.trim() !== '') {
+            appendMessage('user', userInput);
+            document.getElementById('user-input').value = '';
+            setTimeout(function () {
+                var response = getBotResponse(userInput);
+                appendMessage('bot', response);
+            }, 500); // Simulating response delay
+        }
+    }
+
+    function getBotResponse(userInput) {
+        // Convert user input to lowercase for case-insensitive comparison
+        userInput = userInput.toLowerCase();
+
+        // Check if the user input matches any predefined responses
+        for (var category in responsesDatabase) {
+            if (responsesDatabase.hasOwnProperty(category)) {
+                if (responsesDatabase[category][userInput]) {
+                    return responsesDatabase[category][userInput];
+                }
+            }
+        }
+
+        // If no match found, return the default response
+        return responsesDatabase.default;
+    }
+
+    function appendMessage(sender, message) {
+        var chatMessages = document.getElementById('chat-messages');
+        var messageDiv = document.createElement('div');
+        messageDiv.className = sender;
+        messageDiv.innerHTML = message;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+</script>
+<p><b><center>Still In Development.<br> 
+    Mete AI Open Source Artificial Intelligence Project.©</center></b></p>
+<hr class="hr1" width="100%">
+
+
+
+</body>
+</html>

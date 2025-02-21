@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Login | Mete AI</title>
+</head>
+<body>
+    <div class="login-box">
+        <div class="login-header">
+            <header>Login<br>Mete AI</header>
+        </div>
+        <div class="input-box">
+            <input type="text" id="username" class="input-field" placeholder="Username" autocomplete="off" required>  </div>
+        <div class="input-box">
+            <input type="password" id="password" class="input-field" placeholder="Password" autocomplete="off" required>
+        </div>
+        <div class="forgot">
+            </div>
+        <div class="input-submit">
+            <button class="submit-btn" id="submit" onclick="login()" style="color: rgb(0, 0, 0); font-size: medium";>Sign In</button>
+        </div>
+        <div id="error-message"></div>  </div>
+    </div>
+    <script>
+        function login() {
+            const username = document.getElementById("username").value; // Now gets the correct input
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");// You might need to add this div to your HTML
+
+            const users = {
+                "Jeslin1": "Jeslin1",
+                "Arpit2": "Arpit2",
+                "Dev3": "Dev3",
+                "Jones4": "Jones4",
+            };
+
+            if (users.hasOwnProperty(username) && users[username] === password) {
+                errorMessage.textContent = "";
+                window.location.href = "index.html"; 
+            } else {
+                // It's good practice to display the error.  If you don't have an element with ID "error-message" add it to your HTML where you want the error displayed
+                alert("Invalid username or password."); // Or use the errorMessage if you add it.
+            }
+        }
+        
+    </script>
+</body>
+</html>
+</html>
